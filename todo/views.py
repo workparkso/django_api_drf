@@ -52,3 +52,27 @@ def todo_checkbox(request):
 
     serializer = TodoSerializer(todo)  # Todo 객체를 직렬화하여 JSON 형식으로 변환
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# 할일 생성
+@api_view(['POST'])
+def todo_create(request):
+    serializer = TodoSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user) 
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# 할일 삭제
+@api_view(['DELETE'])
+def todo_delete(request, todo_id):
+    try:
+        todo = Todo.objects.get(pk=todo_id, user=request.user) 
+    except Todo.DoesNotExist:
+        return Response({"error": "Todo를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+    
+    todo.delete()
+    return Response({"message": "Todo 리스트를 성공적으로 삭제했습니다."})
+  
+  
+  
