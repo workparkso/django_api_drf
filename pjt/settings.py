@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     
     "users",
-    "diaries",
     "todo",
+    "diaries",
     "schedules",
 ]
 
