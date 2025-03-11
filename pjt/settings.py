@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     
     "users",
     "todo",
-    "diaries",
     "schedules",
+    "diaries",
 ]
 
 MIDDLEWARE = [
@@ -84,6 +84,10 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+
+# 사용자 모델 변경
+AUTH_USER_MODEL = 'users.User' 
 
 
 # Password validation
